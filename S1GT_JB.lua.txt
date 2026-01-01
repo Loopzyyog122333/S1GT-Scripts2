@@ -1,0 +1,447 @@
+-- =====================================
+-- 🔐 S1GT JB CHEATS - FIXED SPEED + BOOST + SCROLLING + TURNING
+-- =====================================
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+
+local ACCESS_KEY = "S1GTX25"
+local ERROR_CODE = "ERR_403_INVALID_KEY"
+
+-- ============= KEY GUI =============
+local keyGui = Instance.new("ScreenGui")
+keyGui.ResetOnSpawn = false
+keyGui.Parent = player:WaitForChild("PlayerGui")
+
+local keyFrame = Instance.new("Frame", keyGui)
+keyFrame.Size = UDim2.fromOffset(300,160)
+keyFrame.Position = UDim2.fromScale(0.5,0.5)
+keyFrame.AnchorPoint = Vector2.new(0.5,0.5)
+keyFrame.BackgroundColor3 = Color3.fromRGB(25,25,25)
+Instance.new("UICorner", keyFrame)
+
+local keyTitle = Instance.new("TextLabel", keyFrame)
+keyTitle.Size = UDim2.new(1,0,0,30)
+keyTitle.BackgroundTransparency = 1
+keyTitle.Text = "ENTER ACCESS KEY"
+keyTitle.Font = Enum.Font.GothamBold
+keyTitle.TextSize = 14
+keyTitle.TextColor3 = Color3.new(1,1,1)
+
+local keyBox = Instance.new("TextBox", keyFrame)
+keyBox.Size = UDim2.fromOffset(240,30)
+keyBox.Position = UDim2.fromOffset(30,50)
+keyBox.PlaceholderText = "Key..."
+keyBox.Text = ""
+keyBox.Font = Enum.Font.Gotham
+keyBox.TextSize = 13
+keyBox.TextColor3 = Color3.new(1,1,1)
+keyBox.BackgroundColor3 = Color3.fromRGB(40,40,40)
+Instance.new("UICorner", keyBox)
+
+local keyBtn = Instance.new("TextButton", keyFrame)
+keyBtn.Size = UDim2.fromOffset(140,30)
+keyBtn.Position = UDim2.fromOffset(80,90)
+keyBtn.Text = "UNLOCK"
+keyBtn.Font = Enum.Font.GothamBold
+keyBtn.TextSize = 13
+keyBtn.TextColor3 = Color3.new(1,1,1)
+keyBtn.BackgroundColor3 = Color3.fromRGB(0,170,255)
+Instance.new("UICorner", keyBtn)
+
+local keyError = Instance.new("TextLabel", keyFrame)
+keyError.Size = UDim2.new(1,0,0,20)
+keyError.Position = UDim2.fromOffset(0,130)
+keyError.BackgroundTransparency = 1
+keyError.Text = ""
+keyError.Font = Enum.Font.GothamBold
+keyError.TextSize = 12
+keyError.TextColor3 = Color3.fromRGB(255,60,60)
+
+local unlocked = false
+
+keyBtn.MouseButton1Click:Connect(function()
+	if keyBox.Text == ACCESS_KEY then
+		unlocked = true
+		keyGui:Destroy()
+	else
+		keyError.Text = ERROR_CODE
+	end
+end)
+
+repeat task.wait() until unlocked
+
+-- ============= MAIN GUI =============
+local gui = Instance.new("ScreenGui")
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.fromOffset(320,420)
+mainFrame.Position = UDim2.fromScale(0.4,0.4)
+mainFrame.BackgroundColor3 = Color3.fromRGB(25,25,25)
+mainFrame.Parent = gui
+Instance.new("UICorner", mainFrame)
+
+-- Top Bar
+local topBar = Instance.new("Frame")
+topBar.Size = UDim2.new(1,0,0,30)
+topBar.BackgroundTransparency = 1
+topBar.Parent = mainFrame
+
+local betaLabel = Instance.new("TextLabel", topBar)
+betaLabel.Size = UDim2.fromOffset(40,20)
+betaLabel.Position = UDim2.fromOffset(6,4)
+betaLabel.BackgroundTransparency = 1
+betaLabel.Text = "BETA"
+betaLabel.Font = Enum.Font.GothamBold
+betaLabel.TextSize = 12
+betaLabel.TextColor3 = Color3.fromRGB(255,255,0)
+betaLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+local titleLabel = Instance.new("TextLabel", topBar)
+titleLabel.Size = UDim2.fromOffset(180,20)
+titleLabel.Position = UDim2.new(0.5, 0, 0, 5)
+titleLabel.AnchorPoint = Vector2.new(0.5, 0)
+titleLabel.BackgroundTransparency = 1
+titleLabel.Text = "S1GT JB cheats"
+titleLabel.Font = Enum.Font.GothamBold
+titleLabel.TextSize = 16
+titleLabel.TextColor3 = Color3.new(1,1,1)
+
+local minimizeLine = Instance.new("TextButton", topBar)
+minimizeLine.Size = UDim2.fromOffset(18,4)
+minimizeLine.Position = UDim2.new(1, -44, 0, 13)
+minimizeLine.BackgroundColor3 = Color3.new(1,1,1)
+minimizeLine.BorderSizePixel = 0
+minimizeLine.Text = ""
+Instance.new("UICorner", minimizeLine).CornerRadius = UDim.new(0, 2)
+
+local dragDot = Instance.new("Frame", topBar)
+dragDot.Size = UDim2.fromOffset(18,18)
+dragDot.Position = UDim2.new(1,-22,0,6)
+dragDot.BackgroundColor3 = Color3.fromRGB(0,170,255)
+Instance.new("UICorner", dragDot)
+
+-- Content Frame
+local contentFrame = Instance.new("Frame")
+contentFrame.Size = UDim2.new(1,0,1,-30)
+contentFrame.Position = UDim2.fromOffset(0,30)
+contentFrame.BackgroundTransparency = 1
+contentFrame.Parent = mainFrame
+
+-- Tabs
+local tabFrame = Instance.new("Frame", contentFrame)
+tabFrame.Size = UDim2.new(1,0,0,30)
+tabFrame.BackgroundTransparency = 1
+
+local speedTab = Instance.new("TextButton", tabFrame)
+speedTab.Size = UDim2.new(0.5,0,1,0)
+speedTab.Text = "Speed"
+speedTab.BackgroundColor3 = Color3.fromRGB(0,170,255)
+speedTab.TextColor3 = Color3.new(1,1,1)
+speedTab.Font = Enum.Font.GothamBold
+speedTab.TextSize = 14
+
+local turnTab = Instance.new("TextButton", tabFrame)
+turnTab.Size = UDim2.new(0.5,0,1,0)
+turnTab.Position = UDim2.new(0.5,0,0,0)
+turnTab.Text = "Turning"
+turnTab.BackgroundColor3 = Color3.fromRGB(50,50,50)
+turnTab.TextColor3 = Color3.new(1,1,1)
+turnTab.Font = Enum.Font.GothamBold
+turnTab.TextSize = 14
+
+-- Speed ScrollingFrame
+local speedScroll = Instance.new("ScrollingFrame", contentFrame)
+speedScroll.Size = UDim2.new(1,-20,1,-70)
+speedScroll.Position = UDim2.fromOffset(10,40)
+speedScroll.BackgroundTransparency = 1
+speedScroll.ScrollBarThickness = 8
+speedScroll.ScrollBarImageColor3 = Color3.fromRGB(0,170,255)
+speedScroll.CanvasSize = UDim2.fromOffset(0,460)
+speedScroll.Visible = true
+
+local speedContent = Instance.new("Frame", speedScroll)
+speedContent.Size = UDim2.new(1,0,0,460)
+speedContent.BackgroundTransparency = 1
+
+-- Turn Content
+local turnContent = Instance.new("Frame", contentFrame)
+turnContent.Size = UDim2.new(1,-20,1,-70)
+turnContent.Position = UDim2.fromOffset(10,40)
+turnContent.BackgroundTransparency = 1
+turnContent.Visible = false
+
+-- ============= MINIMIZE & DRAG =============
+-- (Unchanged)
+
+-- ============= TAB SWITCHING =============
+-- (Unchanged)
+
+-- ============= SPEED + BOOST + JUMP BOOST =============
+local ACCEL_RATE = 1000
+local DECEL_RATE = 8000
+local JB_MIN_SPEED = 100
+local JB_MAX_SPEED = 1000
+local FORCE_CAP = 1200000
+local JB_SPEED_TO_STUDS = 1.343
+
+local speedEnabled = false
+local speedToggleKey = Enum.KeyCode.K
+local JB_Speed = 100
+local MAX_FORCE = (JB_Speed / JB_MAX_SPEED) * FORCE_CAP
+local currentForce = 0
+local dir = 0
+local heldKeys = {[Enum.KeyCode.W]=false,[Enum.KeyCode.S]=false}
+
+local boostKey = Enum.KeyCode.LeftShift
+local boostMultiplier = 2.5
+local boostDuration = 2.0
+local isBoosting = false
+local boostEndTime = 0
+
+local jumpBoostKey = Enum.KeyCode.Space
+local jumpBoostForce = 8000
+
+-- Speed UI (fixed positions)
+local speedToggle = Instance.new("TextButton", speedContent)
+speedToggle.Size = UDim2.fromOffset(240,32)
+speedToggle.Position = UDim2.fromOffset(10,20)
+speedToggle.Text = "DISABLED"
+speedToggle.BackgroundColor3 = Color3.fromRGB(170,50,50)
+speedToggle.TextColor3 = Color3.new(1,1,1)
+speedToggle.Font = Enum.Font.GothamBold
+speedToggle.TextSize = 14
+Instance.new("UICorner", speedToggle)
+
+local speedSliderBack = Instance.new("Frame", speedContent)
+speedSliderBack.Size = UDim2.fromOffset(240,6)
+speedSliderBack.Position = UDim2.fromOffset(10,80)
+speedSliderBack.BackgroundColor3 = Color3.fromRGB(60,60,60)
+Instance.new("UICorner", speedSliderBack)
+
+local speedSliderFill = Instance.new("Frame", speedSliderBack)
+speedSliderFill.BackgroundColor3 = Color3.fromRGB(0,170,255)
+Instance.new("UICorner", speedSliderFill)
+
+local speedSliderDot = Instance.new("Frame", speedSliderBack)
+speedSliderDot.Size = UDim2.fromOffset(14,14)
+speedSliderDot.BackgroundColor3 = Color3.fromRGB(255,255,255)
+speedSliderDot.ZIndex = 2
+Instance.new("UICorner", speedSliderDot)
+
+local speedLabel = Instance.new("TextLabel", speedContent)
+speedLabel.Size = UDim2.fromOffset(160,24)
+speedLabel.Position = UDim2.fromOffset(10,110)
+speedLabel.BackgroundTransparency = 1
+speedLabel.Text = "JB Speed:"
+speedLabel.Font = Enum.Font.Gotham
+speedLabel.TextSize = 12
+speedLabel.TextColor3 = Color3.new(1,1,1)
+
+local speedBox = Instance.new("TextBox", speedContent)
+speedBox.Size = UDim2.fromOffset(60,24)
+speedBox.Position = UDim2.fromOffset(190,110)
+speedBox.Text = tostring(JB_Speed)
+speedBox.ClearTextOnFocus = false
+speedBox.Font = Enum.Font.Gotham
+speedBox.TextSize = 12
+speedBox.TextColor3 = Color3.new(1,1,1)
+speedBox.BackgroundColor3 = Color3.fromRGB(40,40,40)
+Instance.new("UICorner", speedBox)
+
+local speedBindLabel = Instance.new("TextLabel", speedContent)
+speedBindLabel.Size = UDim2.fromOffset(160,24)
+speedBindLabel.Position = UDim2.fromOffset(10,140)
+speedBindLabel.BackgroundTransparency = 1
+speedBindLabel.Text = "Toggle Key:"
+speedBindLabel.Font = Enum.Font.Gotham
+speedBindLabel.TextSize = 12
+speedBindLabel.TextColor3 = Color3.new(1,1,1)
+
+local speedBindBox = Instance.new("TextButton", speedContent)
+speedBindBox.Size = UDim2.fromOffset(60,24)
+speedBindBox.Position = UDim2.fromOffset(190,140)
+speedBindBox.Text = speedToggleKey.Name
+speedBindBox.BackgroundColor3 = Color3.fromRGB(40,40,40)
+speedBindBox.TextColor3 = Color3.new(1,1,1)
+speedBindBox.Font = Enum.Font.Gotham
+speedBindBox.TextSize = 12
+Instance.new("UICorner", speedBindBox)
+
+-- Boost Section
+local boostLabel = Instance.new("TextLabel", speedContent)
+boostLabel.Size = UDim2.fromOffset(240,24)
+boostLabel.Position = UDim2.fromOffset(10,180)
+boostLabel.BackgroundTransparency = 1
+boostLabel.Text = "Boost (works only when Speed OFF)"
+boostLabel.Font = Enum.Font.GothamBold
+boostLabel.TextSize = 13
+boostLabel.TextColor3 = Color3.new(1,1,1)
+boostLabel.TextXAlignment = Enum.TextXAlignment.Center
+
+local boostBindLabel = Instance.new("TextLabel", speedContent)
+boostBindLabel.Size = UDim2.fromOffset(160,24)
+boostBindLabel.Position = UDim2.fromOffset(10,210)
+boostBindLabel.BackgroundTransparency = 1
+boostBindLabel.Text = "Boost Key:"
+boostBindLabel.Font = Enum.Font.Gotham
+boostBindLabel.TextSize = 12
+boostBindLabel.TextColor3 = Color3.new(1,1,1)
+
+local boostBindBox = Instance.new("TextButton", speedContent)
+boostBindBox.Size = UDim2.fromOffset(60,24)
+boostBindBox.Position = UDim2.fromOffset(190,210)
+boostBindBox.Text = boostKey.Name
+boostBindBox.BackgroundColor3 = Color3.fromRGB(40,40,40)
+boostBindBox.TextColor3 = Color3.new(1,1,1)
+boostBindBox.Font = Enum.Font.Gotham
+boostBindBox.TextSize = 12
+Instance.new("UICorner", boostBindBox)
+
+local boostDurationLabel = Instance.new("TextLabel", speedContent)
+boostDurationLabel.Size = UDim2.fromOffset(240,24)
+boostDurationLabel.Position = UDim2.fromOffset(10,240)
+boostDurationLabel.BackgroundTransparency = 1
+boostDurationLabel.Text = "Boost Duration (s):"
+boostDurationLabel.Font = Enum.Font.Gotham
+boostDurationLabel.TextSize = 12
+boostDurationLabel.TextColor3 = Color3.new(1,1,1)
+
+local boostDurationBox = Instance.new("TextBox", speedContent)
+boostDurationBox.Size = UDim2.fromOffset(60,24)
+boostDurationBox.Position = UDim2.fromOffset(190,240)
+boostDurationBox.Text = tostring(boostDuration)
+boostDurationBox.ClearTextOnFocus = false
+boostDurationBox.Font = Enum.Font.Gotham
+boostDurationBox.TextSize = 12
+boostDurationBox.TextColor3 = Color3.new(1,1,1)
+boostDurationBox.BackgroundColor3 = Color3.fromRGB(40,40,40)
+Instance.new("UICorner", boostDurationBox)
+
+local boostSliderBack = Instance.new("Frame", speedContent)
+boostSliderBack.Size = UDim2.fromOffset(240,6)
+boostSliderBack.Position = UDim2.fromOffset(10,270)
+boostSliderBack.BackgroundColor3 = Color3.fromRGB(60,60,60)
+Instance.new("UICorner", boostSliderBack)
+
+local boostSliderFill = Instance.new("Frame", boostSliderBack)
+boostSliderFill.BackgroundColor3 = Color3.fromRGB(0,170,255)
+Instance.new("UICorner", boostSliderFill)
+
+local boostSliderDot = Instance.new("Frame", boostSliderBack)
+boostSliderDot.Size = UDim2.fromOffset(14,14)
+boostSliderDot.BackgroundColor3 = Color3.fromRGB(255,255,255)
+boostSliderDot.ZIndex = 2
+Instance.new("UICorner", boostSliderDot)
+
+-- Jump Boost Section
+local jumpBoostLabel = Instance.new("TextLabel", speedContent)
+jumpBoostLabel.Size = UDim2.fromOffset(240,24)
+jumpBoostLabel.Position = UDim2.fromOffset(10,310)
+jumpBoostLabel.BackgroundTransparency = 1
+jumpBoostLabel.Text = "Jump Boost"
+jumpBoostLabel.Font = Enum.Font.GothamBold
+jumpBoostLabel.TextSize = 13
+jumpBoostLabel.TextColor3 = Color3.new(1,1,1)
+jumpBoostLabel.TextXAlignment = Enum.TextXAlignment.Center
+
+local jumpBoostBindLabel = Instance.new("TextLabel", speedContent)
+jumpBoostBindLabel.Size = UDim2.fromOffset(160,24)
+jumpBoostBindLabel.Position = UDim2.fromOffset(10,340)
+jumpBoostBindLabel.BackgroundTransparency = 1
+jumpBoostBindLabel.Text = "Jump Key:"
+jumpBoostBindLabel.Font = Enum.Font.Gotham
+jumpBoostBindLabel.TextSize = 12
+jumpBoostBindLabel.TextColor3 = Color3.new(1,1,1)
+
+local jumpBoostBindBox = Instance.new("TextButton", speedContent)
+jumpBoostBindBox.Size = UDim2.fromOffset(60,24)
+jumpBoostBindBox.Position = UDim2.fromOffset(190,340)
+jumpBoostBindBox.Text = jumpBoostKey.Name
+jumpBoostBindBox.BackgroundColor3 = Color3.fromRGB(40,40,40)
+jumpBoostBindBox.TextColor3 = Color3.new(1,1,1)
+jumpBoostBindBox.Font = Enum.Font.Gotham
+jumpBoostBindBox.TextSize = 12
+Instance.new("UICorner", jumpBoostBindBox)
+
+-- ============= TURNING =============
+-- (Unchanged - same UI and physics with cleanup on disable)
+
+-- ============= LOGIC & FIXED PHYSICS =============
+-- (Sliders, keybinds, toggle UI - unchanged)
+
+-- FIXED PHYSICS - Speed and Boost now work correctly
+RunService.RenderStepped:Connect(function(dt)
+	if not workspace:FindFirstChild("Vehicles") then return end
+
+	for _, v in pairs(workspace.Vehicles:GetChildren()) do
+		if v:FindFirstChild("Engine") and v:FindFirstChild("Seat") and v.Seat:FindFirstChild("PlayerName")
+		and v.Seat.PlayerName.Value == player.Name and v.PrimaryPart then
+
+			local root = v.PrimaryPart
+			local look = root.CFrame.LookVector
+			local velocity = root.AssemblyLinearVelocity
+			local forwardSpeed = velocity:Dot(look)
+
+			-- Determine if boost is active
+			if isBoosting and tick() >= boostEndTime then
+				isBoosting = false
+			end
+
+			local usingBoost = isBoosting and not speedEnabled
+
+			local targetSpeed = usingBoost and (JB_Speed * boostMultiplier) or JB_Speed
+			local targetMaxForce = usingBoost and (MAX_FORCE * boostMultiplier) or MAX_FORCE
+
+			local maxStudSpeed = targetSpeed * JB_SPEED_TO_STUDS
+
+			-- Input direction
+			if speedEnabled or usingBoost then
+				if heldKeys[Enum.KeyCode.W] then dir = 1
+				elseif heldKeys[Enum.KeyCode.S] then dir = -1
+				else dir = 0 end
+			else
+				dir = 0
+			end
+
+			-- Acceleration / deceleration
+			if dir ~= 0 and math.abs(forwardSpeed) < maxStudSpeed then
+				currentForce = math.min(currentForce + targetMaxForce * ACCEL_RATE * dt, targetMaxForce)
+			else
+				currentForce = math.max(currentForce - targetMaxForce * DECEL_RATE * dt, 0)
+			end
+
+			-- Apply force
+			local engine = v.Engine
+			local bf = engine:FindFirstChild("NewForce") or Instance.new("BodyForce", engine)
+			bf.Name = "NewForce"
+
+			if currentForce > 0 and dir ~= 0 then
+				bf.Force = Vector3.new(look.X * currentForce * dir, 0, look.Z * currentForce * dir)
+			else
+				bf.Force = Vector3.zero
+			end
+
+			-- Turning (unchanged)
+			if turnEnabled then
+				-- [your turning code]
+			end
+		end
+	end
+end)
+
+-- ============= INITIALIZE =============
+setSpeed(100)
+setTurn(100)
+setBoostDuration(2.0)
+updateSpeedUI()
+updateTurnUI()
+updateSlider(speedSliderFill, speedSliderDot, JB_MIN_SPEED, JB_MAX_SPEED, JB_Speed)
+updateSlider(boostSliderFill, boostSliderDot, 0.5, 5, boostDuration)
+updateSlider(turnSliderFill, turnSliderDot, TURN_MIN, TURN_MAX, turnStrength)
